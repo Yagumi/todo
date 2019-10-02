@@ -13,6 +13,8 @@ class TodoStore {
 
   @observable todo = 'Hello!';
 
+  @observable isAddNewTodo = false;
+
   @computed get viewTodoList() {
     return this.todoList.map(item => item);
   }
@@ -28,8 +30,12 @@ class TodoStore {
   };
 
   @action addNewTodo = () => {
-    this.todoList.push({ title: this.todoValue, id: uuid() });
+    this.todoList.push({ title: this.todoValue, id: uuid(), priority: 'High' });
     this.todoValue = '';
+  };
+
+  @action updateIsNewActive = () => {
+    this.isAddNewTodo = !this.isAddNewTodo;
   };
 }
 

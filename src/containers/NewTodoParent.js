@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import NewTodo from '../components/NewTodo/NewTodo';
 
+import add from '../static/img/add.svg';
+
 const NewTodoParent = inject('todoStore')(
   observer(({ todo, todoStore }) => {
     const handleSubmitForm = event => {
@@ -16,10 +18,18 @@ const NewTodoParent = inject('todoStore')(
     const handleAddTodo = () => {
       if (todoStore.todoValue !== '') {
         todoStore.addNewTodo();
+        todoStore.updateIsNewActive();
       }
+    };
+
+    const handleIsNewActive = () => {
+      todoStore.updateIsNewActive();
     };
     return (
       <NewTodo
+        add={add}
+        isAddNewTodo={todoStore.isAddNewTodo}
+        handleIsNewActive={handleIsNewActive}
         handleSubmitForm={handleSubmitForm}
         todo={todo}
         todoValue={todoStore.todoValue}

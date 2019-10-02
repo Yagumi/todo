@@ -14,9 +14,7 @@ const FullTodo = () => {
 };
 
 const Container = styled.div`
-  width: 1440px;
-  height: 100vh;
-  background-color: #f2f2f2;
+  padding: 20px;
   color: #252a31;
 `;
 
