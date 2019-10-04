@@ -9,7 +9,17 @@ const TodoContainer = inject('todoStore')(
     const handleDelete = () => {
       todoStore.deleteTodo(todo.id);
     };
-    return <Todo todo={todo} handleDelete={handleDelete} />;
+    const handleIsCompleted = () => {
+      todoStore.updateComplited(todo.id);
+    };
+    return (
+      <Todo
+        todo={todo}
+        handleDelete={handleDelete}
+        handleIsCompleted={handleIsCompleted}
+        isCompleted={todo.completed}
+      />
+    );
   }),
 );
 

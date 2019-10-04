@@ -5,8 +5,10 @@ configure({ enforceActions: 'observed' });
 
 class TodoStore {
   @observable todoList = [
-    { title: 'First task', id: uuid() },
-    { title: 'Second task', id: uuid() },
+    { title: 'First task', id: uuid(), priority: 'low', label: 'all', completed: false },
+    { title: 'Second task', id: uuid(), priority: 'high', label: 'all', completed: true },
+    { title: 'Third task', id: uuid(), priority: 'low', label: 'all', completed: false },
+    { title: 'Forth task', id: uuid(), priority: 'medium', label: 'all', completed: false },
   ];
 
   @observable todoValue = '';
@@ -15,13 +17,18 @@ class TodoStore {
 
   @observable isAddNewTodo = false;
 
+  @observable priorityValue = 'medium';
+
+  @observable sortValue = 'all';
+
   @computed get viewTodoList() {
-    return this.todoList.map(item => item);
+    const matchesFilter = new RegExp(this.sortValue, 'i');
+    return this.todoList.filter(
+      ({ priority, label }) => matchesFilter.test(priority) || matchesFilter.test(label),
+    );
   }
 
   @action deleteTodo = id => {
-    // eslint-disable-next-line no-console
-    console.log(id);
     this.todoList.replace(this.todoList.filter(todo => todo.id !== id));
   };
 
@@ -30,12 +37,41 @@ class TodoStore {
   };
 
   @action addNewTodo = () => {
-    this.todoList.push({ title: this.todoValue, id: uuid(), priority: 'High' });
+    this.todoList.push({
+      title: this.todoValue,
+      id: uuid(),
+      priority: this.priorityValue,
+      label: 'all',
+      completed: false,
+    });
     this.todoValue = '';
   };
 
   @action updateIsNewActive = () => {
     this.isAddNewTodo = !this.isAddNewTodo;
+  };
+
+  @action updatePriorityValue = value => {
+    this.priorityValue = value.toLocaleLowerCase();
+  };
+
+  @action updateSortValue = value => {
+    this.sortValue = value.toLocaleLowerCase();
+  };
+
+  @computed get updatedSortValue() {
+    return this.sortValue.toLocaleLowerCase();
+  }
+
+  @action updateComplited = id => {
+    this.todoList.replace(
+      this.todoList.filter(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      }),
+    );
   };
 }
 

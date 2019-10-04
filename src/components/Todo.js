@@ -2,15 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-// import Button from '../elements/TodoButton';
-
-const Todo = ({ todo }) => {
+const Todo = ({ handleIsCompleted, isCompleted, todo }) => {
   return (
-    <Container>
-      <h2>{todo.title}</h2>
-      <span>{todo.priority}</span>
-      {/* <Button>Edit</Button>
-      <Button onClick={handleDelete}>Delete</Button> */}
+    <Container onClick={handleIsCompleted}>
+      <Title isCompleted={isCompleted}>{todo.title}</Title>
+      <Priority priority={todo.priority} />
     </Container>
   );
 };
@@ -21,20 +17,46 @@ const Container = styled.li`
   list-style-type: none;
   display: flex;
   align-items: flex-start;
-  & > h2 {
-    margin: 0;
-    word-break: break-all;
-    font-size: 18px;
-    line-height: 21px;
-  }
-  & > button:first-of-type {
-    margin-left: auto;
-  }
+`;
+const Title = styled.h2`
+  margin: 0;
+  word-break: break-all;
+  font-size: 18px;
+  line-height: 21px;
+  text-decoration: ${({ theme, ...props }) => {
+    if (props.isCompleted) {
+      return 'line-through';
+    }
+    return 'none';
+  }};
+  color: ${({ theme, ...props }) => {
+    if (props.isCompleted) {
+      return '#EBEFF5';
+    }
+    return '#252A31';
+  }};
+`;
+const Priority = styled.span`
+  margin-left: auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: ${({ theme, ...props }) => {
+    if (props.priority === 'high') {
+      return theme.colors.high;
+    }
+    if (props.priority === 'medium') {
+      return theme.colors.medium;
+    }
+    return theme.colors.low;
+  }};
 `;
 
 Todo.propTypes = {
   todo: PropTypes.object,
+  handleIsCompleted: PropTypes.func,
   handleDelete: PropTypes.func,
+  isCompleted: PropTypes.bool,
 };
 
 export default Todo;

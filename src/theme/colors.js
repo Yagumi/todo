@@ -1,5 +1,8 @@
-export default {
+const colors = {
   high: '#F45E6D',
-  normal: '#61DEA4',
+  medium: '#61DEA4',
   low: '#FFE761',
+  all: '#B678FF',
 };
+
+export default colors;
