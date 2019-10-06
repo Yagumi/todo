@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import Button from '../elements/TodoButton';
+import Form from '../elements/Form';
 
 const Todo = ({
   handleIsCompleted,
@@ -17,21 +18,19 @@ const Todo = ({
   todo,
   imgDelete,
   imgEdit,
-  imgSave,
-  imgWrong,
 }) => {
   if (isEdit) {
     return (
       <Container>
-        <form onSubmit={handleSave}>
-          <input type="text" value={editTodoValue} onChange={handleUpdate} />
-          <Button onClick={handleSave}>
-            <img src={imgSave} alt="save changes of task" />
-          </Button>
-          <Button onClick={handleBack}>
-            <img src={imgWrong} alt="wrong task" />
-          </Button>
-        </form>
+        <Form
+          handleSubmit={handleSave}
+          value={editTodoValue}
+          handleUpdate={handleUpdate}
+          handleAdd={handleSave}
+          handleBack={handleBack}
+          altFirstImg="Save new changes"
+          altSecondImg="Cancellation of changes"
+        />
         <Priority priority={todo.priority} />
       </Container>
     );
@@ -58,37 +57,20 @@ const Container = styled.li`
   list-style-type: none;
   display: flex;
   align-items: center;
-  & > form {
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-  & > form > input {
-    width: 200px;
-    font-size: 18px;
-    line-height: 20px;
-    border: none;
-    font-family: Arial, sans-serif;
-    font-weight: 600;
-  }
-  & > button,
-  & > form > button {
+  & > button {
     padding: 0;
     cursor: pointer;
     border: none;
     background-color: transparent;
   }
-  & > button > img,
-  & > form > button > img {
+  & > button > img {
     width: 24px;
     height: 24px;
   }
-  & > button:first-of-type,
-  & > form > button:first-of-type {
+  & > button:first-of-type {
     margin-left: 30px;
   }
-  & > button:last-of-type,
-  & > form > button:last-of-type {
+  & > button:last-of-type {
     margin-left: 20px;
   }
 `;
@@ -114,12 +96,12 @@ const Priority = styled.span`
   border-radius: 50%;
   background-color: ${({ theme, ...props }) => {
     if (props.priority === 'high') {
-      return theme.colors.high;
+      return theme.colors.red;
     }
     if (props.priority === 'medium') {
-      return theme.colors.medium;
+      return theme.colors.green;
     }
-    return theme.colors.low;
+    return theme.colors.yellow;
   }};
 `;
 
@@ -136,8 +118,6 @@ Todo.propTypes = {
   handleSave: PropTypes.func,
   handleBack: PropTypes.func,
   imgEdit: PropTypes.node,
-  imgSave: PropTypes.node,
-  imgWrong: PropTypes.node,
 };
 
 export default Todo;

@@ -1,8 +1,10 @@
 const colors = {
-  high: '#F45E6D',
-  medium: '#61DEA4',
-  low: '#FFE761',
-  all: '#B678FF',
+  red: '#F45E6D',
+  green: '#61DEA4',
+  yellow: '#FFE761',
+  violet: '#B678FF',
+  white: '#ffffff',
+  black: '#252A31',
 };
 
 export default colors;

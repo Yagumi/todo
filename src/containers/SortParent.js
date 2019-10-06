@@ -15,7 +15,7 @@ const SortParent = inject('todoStore')(
       <Priority
         handleSubmit={handleSubmit}
         handleClick={handleSortValue}
-        title="Filter by:"
+        titleName="Filter by:"
         sortValue={todoStore.updatedSortValue}
       />
     );

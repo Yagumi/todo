@@ -8,15 +8,13 @@ import add from '../static/img/add.svg';
 
 const NewTodoParent = inject('todoStore')(
   observer(({ todo, todoStore }) => {
-    const handleSubmitForm = event => {
-      event.preventDefault();
-    };
     const handleUpdate = ({ target: { value } }) => {
       todoStore.updateTodoValue(value);
     };
 
-    const handleAddTodo = () => {
+    const handleAddTodo = e => {
       if (todoStore.todoValue !== '') {
+        e.preventDefault();
         todoStore.addNewTodo();
         todoStore.updateIsNewActive();
       }
@@ -30,7 +28,7 @@ const NewTodoParent = inject('todoStore')(
         add={add}
         isAddNewTodo={todoStore.isAddNewTodo}
         handleIsNewActive={handleIsNewActive}
-        handleSubmitForm={handleSubmitForm}
+        handleSubmit={handleAddTodo}
         todo={todo}
         todoValue={todoStore.todoValue}
         handleUpdate={handleUpdate}

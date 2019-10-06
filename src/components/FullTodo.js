@@ -9,9 +9,9 @@ const FullTodo = () => {
   return (
     <Container>
       <h1>Simple Todo App</h1>
-      <NewTodoParent />
       <SortParent />
       <TodoListParent />
+      <NewTodoParent />
     </Container>
   );
 };
@@ -21,7 +21,7 @@ const Container = styled.div`
   color: #252a31;
   position: relative;
   & > h1 {
-    text-align: center;
+    text-align: left;
     color: #252a31;
     text-transform: uppercase;
   }

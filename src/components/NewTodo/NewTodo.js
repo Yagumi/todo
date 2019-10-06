@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import PriorityNewParent from '../../containers/PriorityNewParent';
-import Button from '../../elements/TodoButton';
+import Form from '../../elements/Form';
 
 const NewTodo = ({
   add,
   isAddNewTodo,
   handleIsNewActive,
-  handleSubmitForm,
+  handleSubmit,
   todoValue,
   handleUpdate,
   handleAddTodo,
@@ -17,17 +17,17 @@ const NewTodo = ({
   if (isAddNewTodo) {
     return (
       <Container>
-        <form onSubmit={handleSubmitForm}>
-          <input
-            type="text"
-            value={todoValue}
-            onChange={handleUpdate}
-            placeholder="Enter new task"
-          />
-          <Button onClick={handleAddTodo}>Add</Button>
-          <Button onClick={handleIsNewActive}>Close</Button>
-        </form>
+        <h1>New Task</h1>
         <PriorityNewParent />
+        <Form
+          handleSubmit={handleSubmit}
+          value={todoValue}
+          handleUpdate={handleUpdate}
+          handleAdd={handleAddTodo}
+          handleBack={handleIsNewActive}
+          altFirstImg="Add new task"
+          altSecondImg="Cancellation"
+        />
       </Container>
     );
   }
@@ -42,14 +42,21 @@ const NewTodo = ({
 
 const Container = styled.div`
   width: 100%;
-
-  > form {
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  & > div > div > {
+    margin-right: auto;
+  }
+  & > form {
+    margin-top: 20px;
     display: flex;
+    align-items: center;
   }
   & > form > input {
-    pfont-size: 18px;
+    font-size: 18px;
     line-height: 21px;
+    border-bottom: 1px solid black;
+    width: 240px;
   }
   > form > button:first-of-type {
     margin-left: auto;
@@ -58,10 +65,12 @@ const Container = styled.div`
   }
 `;
 const ContainerIsClose = styled.div`
-  padding: 0 0 40px 0;
+  display: flex;
 `;
 
 const ButtonIsClose = styled.button`
+  padding: 0;
+  margin-left: auto;
   width: 64px;
   height: 64px;
   border-radius: 50%;
@@ -74,7 +83,7 @@ NewTodo.propTypes = {
   add: PropTypes.node,
   isAddNewTodo: PropTypes.bool,
   handleIsNewActive: PropTypes.func,
-  handleSubmitForm: PropTypes.func,
+  handleSubmit: PropTypes.func,
   todoValue: PropTypes.string,
   handleUpdate: PropTypes.func,
   handleAddTodo: PropTypes.func,

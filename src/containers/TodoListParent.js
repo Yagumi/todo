@@ -6,7 +6,13 @@ import TodoList from '../components/TodoList';
 
 const TodoListParent = inject('todoStore')(
   observer(({ todoStore }) => {
-    return <TodoList todoList={todoStore.viewTodoList} />;
+    const updateTitle = () => {
+      if (todoStore.updatedSortValue === 'all') {
+        return 'all';
+      }
+      return `${todoStore.updatedSortValue} Priority `;
+    };
+    return <TodoList todoList={todoStore.viewTodoList} title={updateTitle()} />;
   }),
 );
 
