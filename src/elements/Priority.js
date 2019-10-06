@@ -3,11 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-const Priority = ({ handleSubmit, handleClick, title, sortValue }) => {
+const Priority = ({ handleSubmit, handleClick, title, sortValue, activePriorityValue }) => {
   if (title === undefined) {
     return (
       <Container>
-        <h2>{title}</h2>
         <form onSubmit={handleSubmit}>
           <Input
             color="high"
@@ -15,6 +14,7 @@ const Priority = ({ handleSubmit, handleClick, title, sortValue }) => {
             type="button"
             value="High"
             onClick={handleClick}
+            activePriorityValue={activePriorityValue}
           />
           <Input
             color="medium"
@@ -22,6 +22,7 @@ const Priority = ({ handleSubmit, handleClick, title, sortValue }) => {
             type="button"
             value="Medium"
             onClick={handleClick}
+            activePriorityValue={activePriorityValue}
           />
           <Input
             color="low"
@@ -29,6 +30,7 @@ const Priority = ({ handleSubmit, handleClick, title, sortValue }) => {
             type="button"
             value="Low"
             onClick={handleClick}
+            activePriorityValue={activePriorityValue}
           />
         </form>
       </Container>
@@ -73,15 +75,21 @@ const Container = styled.div`
   }
 `;
 const Input = styled.input`
+  border-radius: 10px;
+  margin-left: 5px;
   background-color: ${({ theme, ...props }) => {
     const bg = props.sortValue;
-    if (props.color === bg && props.sortValue === 'high') {
+    const bgNew = props.activePriorityValue;
+    if ((props.color === bg && props.sortValue === 'high')
+    || (props.color === bgNew && props.activePriorityValue === 'high')) {
       return theme.colors.high;
     }
-    if (props.color === bg && props.sortValue === 'medium') {
+    if ((props.color === bg && props.sortValue === 'medium')
+    || (props.color === bgNew && props.activePriorityValue === 'medium')) {
       return theme.colors.medium;
     }
-    if (props.color === bg && props.sortValue === 'low') {
+    if ((props.color === bg && props.sortValue === 'low')
+    || (props.color === bgNew && props.activePriorityValue === 'low')) {
       return theme.colors.low;
     }
     if (props.color === bg && props.sortValue === 'all') {
@@ -113,6 +121,7 @@ Priority.propTypes = {
   handleClick: PropTypes.func.isRequired,
   title: PropTypes.string,
   sortValue: PropTypes.string,
+  activePriorityValue: PropTypes.string,
 };
 
 export default Priority;

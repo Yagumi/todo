@@ -8,7 +8,9 @@ const PriorityNewParent = inject('todoStore')(
     const updatePriority = ({ target: { value } }) => {
       todoStore.updatePriorityValue(value);
     };
-    return <Priority handleClick={updatePriority} />;
+    return (
+      <Priority handleClick={updatePriority} activePriorityValue={todoStore.activePriorityValue} />
+    );
   }),
 );
 

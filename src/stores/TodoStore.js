@@ -5,10 +5,14 @@ configure({ enforceActions: 'observed' });
 
 class TodoStore {
   @observable todoList = [
-    { title: 'First task', id: uuid(), priority: 'low', label: 'all', completed: false },
-    { title: 'Second task', id: uuid(), priority: 'high', label: 'all', completed: true },
-    { title: 'Third task', id: uuid(), priority: 'low', label: 'all', completed: false },
-    { title: 'Forth task', id: uuid(), priority: 'medium', label: 'all', completed: false },
+    {
+      title: 'Test task',
+      id: uuid(),
+      priority: 'low',
+      label: 'all',
+      completed: false,
+      isEdit: false,
+    },
   ];
 
   @observable todoValue = '';
@@ -21,6 +25,8 @@ class TodoStore {
 
   @observable sortValue = 'all';
 
+  @observable editTodoValue = '';
+
   @computed get viewTodoList() {
     const matchesFilter = new RegExp(this.sortValue, 'i');
     return this.todoList.filter(
@@ -28,12 +34,52 @@ class TodoStore {
     );
   }
 
+  @action editTodo = id => {
+    this.todoList.replace(
+      this.todoList.map(todo => {
+        if (todo.id === id) {
+          todo.isEdit = true;
+          this.editTodoValue = todo.title;
+        }
+        return todo;
+      }),
+    );
+  };
+
   @action deleteTodo = id => {
     this.todoList.replace(this.todoList.filter(todo => todo.id !== id));
   };
 
-  @action updateTodoValue = value => {
-    this.todoValue = value;
+  @action updateTodoValue = (value, isEdit) => {
+    if (isEdit) {
+      this.editTodoValue = value;
+    } else {
+      this.todoValue = value;
+    }
+  };
+
+  @action editSave = id => {
+    this.todoList.replace(
+      this.todoList.map(todo => {
+        if (todo.id === id) {
+          todo.title = this.editTodoValue;
+          todo.isEdit = false;
+        }
+        return todo;
+      }),
+    );
+  };
+
+  @action editBack = id => {
+    this.todoList.replace(
+      this.todoList.map(todo => {
+        if (todo.id === id) {
+          todo.isEdit = false;
+          this.editTodoValue = todo.title;
+        }
+        return todo;
+      }),
+    );
   };
 
   @action addNewTodo = () => {
@@ -43,6 +89,7 @@ class TodoStore {
       priority: this.priorityValue,
       label: 'all',
       completed: false,
+      isEdit: false,
     });
     this.todoValue = '';
   };
@@ -58,6 +105,10 @@ class TodoStore {
   @action updateSortValue = value => {
     this.sortValue = value.toLocaleLowerCase();
   };
+
+  @computed get activePriorityValue() {
+    return this.priorityValue.toLocaleLowerCase();
+  }
 
   @computed get updatedSortValue() {
     return this.sortValue.toLocaleLowerCase();

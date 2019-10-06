@@ -19,6 +19,7 @@ const FullTodo = () => {
 const Container = styled.div`
   padding: 20px;
   color: #252a31;
+  position: relative;
   & > h1 {
     text-align: center;
     color: #252a31;

@@ -14,7 +14,7 @@ const Container = styled.div`
   width: 375px;
   height: 100vh;
   margin: 0 auto;
-  position: relative;
+  background-color: #ffffff;
 `;
 
 export default App;

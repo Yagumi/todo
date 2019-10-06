@@ -4,9 +4,7 @@ import { Provider } from 'mobx-react';
 import './index.css';
 import { ThemeProvider } from 'emotion-theming';
 import App from './App';
-
 import * as serviceWorker from './serviceWorker';
-
 import todoStore from './stores/TodoStore';
 import theme from './theme/index';
 

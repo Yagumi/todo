@@ -41,24 +41,33 @@ const NewTodo = ({
 };
 
 const Container = styled.div`
-  position: absolute;
-  bottom: 10px;
-  left: 20px;
   width: 100%;
-  height: 150px;
+
+  > form {
+    width: 100%;
+    display: flex;
+  }
+  & > form > input {
+    pfont-size: 18px;
+    line-height: 21px;
+  }
+  > form > button:first-of-type {
+    margin-left: auto;
+  }
+  > form > button {
+  }
 `;
 const ContainerIsClose = styled.div`
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
+  padding: 0 0 40px 0;
 `;
+
 const ButtonIsClose = styled.button`
   width: 64px;
   height: 64px;
   border-radius: 50%;
   border: none;
-  background-color: #ebeff5;
-  box-shadow: 0px 24px 32px rgba(21, 35, 56, 0.16);
+  background-color: #b678ff;
+  cursor: pointer;
 `;
 
 NewTodo.propTypes = {
