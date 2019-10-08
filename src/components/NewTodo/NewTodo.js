@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import PriorityNewParent from '../../containers/PriorityNewParent';
-import Form from '../../elements/Form';
+import FormParent from '../../containers/FormParent';
 
 const NewTodo = ({
   add,
@@ -19,7 +19,7 @@ const NewTodo = ({
       <Container>
         <h1>New Task</h1>
         <PriorityNewParent />
-        <Form
+        <FormParent
           handleSubmit={handleSubmit}
           value={todoValue}
           handleUpdate={handleUpdate}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
-import Priority from '../elements/Priority';
+import Priority from '../components/Priority';
 
 const SortParent = inject('todoStore')(
   observer(({ todoStore }) => {

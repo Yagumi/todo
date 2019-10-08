@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import Button from '../elements/TodoButton';
-import Form from '../elements/Form';
+import FormParent from '../containers/FormParent';
 
 const Todo = ({
   handleIsCompleted,
@@ -22,7 +22,7 @@ const Todo = ({
   if (isEdit) {
     return (
       <Container>
-        <Form
+        <FormParent
           handleSubmit={handleSave}
           value={editTodoValue}
           handleUpdate={handleUpdate}
